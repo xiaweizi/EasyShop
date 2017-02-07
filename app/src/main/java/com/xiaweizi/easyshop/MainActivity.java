@@ -17,6 +17,7 @@ import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,11 +32,17 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.activity_main)
     RelativeLayout activityMain;
 
+    private Unbinder unbinder;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
+
+        testDesignMode();
+
         adapter = new MyAdapter();
         lv.setAdapter(adapter);
         rl.setOnLoadListener(new RefreshLayout.onLoadListener() {
@@ -85,6 +92,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void testDesignMode() {
+
+    }
+
     public class MyAdapter extends BaseAdapter {
 
         private List<String> mList;
@@ -126,5 +137,11 @@ public class MainActivity extends AppCompatActivity {
             tv.setText(mList.get(position));
             return view;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 }

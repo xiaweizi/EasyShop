@@ -68,6 +68,7 @@
     <string name="popu_cancle">取消</string>
     <string name="nickname_info">1.通过昵称添加好友,没有昵称无法添加好友 \n2.此昵称非用户名,在联系人和市场等场景显示</string>
 
+    <!--菜单选项-->
     <string name="menu_household">家用</string>
     <string name="menu_electron">电子</string>
     <string name="menu_dress">服饰</string>

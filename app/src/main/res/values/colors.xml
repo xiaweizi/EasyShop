@@ -14,4 +14,9 @@
     <color name="btn_tell">#ff9402</color>
     <color name="background">#eeeeee</color>
     <color name="text_hint">#999999</color>
+
+    <!--主页底部菜单字体颜色-->
+    <color name="text_main_bottom_menu_default">#FF797979</color>
+    <color name="text_main_bottom_menu_selected">#ff5000</color>
+
 </resources>

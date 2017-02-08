@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     /*************************** 底部栏点击事件 ***************************/
     @OnClick({R.id.tv_shop,R.id.tv_message,R.id.tv_mail_list,R.id.tv_me})
     public void onClick(TextView view){
+
         for (int i = 0; i < textViews.length; i++) {
             textViews[i].setSelected(false);
             textViews[i].setTag(i);

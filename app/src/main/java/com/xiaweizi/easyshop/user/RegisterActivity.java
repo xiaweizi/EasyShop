@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -20,8 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RegisterActivity extends AppCompatActivity {
 
+public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.et_username)
@@ -106,5 +107,25 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
         mActivityUtils.showToast("执行注册的网络请求");
+    }
+
+    /*************************** 设置右滑退出 ***************************/
+    float XUp = 0;
+    float XDown = 0;
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                XDown = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                XUp = event.getX();
+                float XOffset = XUp - XDown;
+                if (XOffset >= 50){
+                    finish();
+                }
+                break;
+        }
+        return super.onTouchEvent(event);
     }
 }

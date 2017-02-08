@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,8 +43,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         mActivityUtils = new ActivityUtils(this);
-        
-        initToolBar();
+
+        initToolBar();//初始化ToolBar
     }
 
     private void initToolBar() {
@@ -61,15 +62,14 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
+
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
         }
 
         //表示最终内容
@@ -93,5 +93,25 @@ public class LoginActivity extends AppCompatActivity {
                 mActivityUtils.startActivity(RegisterActivity.class);
                 break;
         }
+    }
+
+    /*************************** 设置右滑退出 ***************************/
+    float XUp = 0;
+    float XDown = 0;
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                XDown = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                XUp = event.getX();
+                float XOffset = XUp - XDown;
+                if (XOffset >= 50){
+                    finish();
+                }
+                break;
+        }
+        return super.onTouchEvent(event);
     }
 }

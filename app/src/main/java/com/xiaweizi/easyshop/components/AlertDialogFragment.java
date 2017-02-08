@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 
 import com.xiaweizi.easyshop.R;
+import com.xiaweizi.easyshop.commons.LogUtils;
 
 
 /**

@@ -14,10 +14,6 @@ import com.xiaweizi.easyshop.user.LoginActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by ljkj on 2017/2/7.
- */
-
 public class MeFragment extends Fragment {
 
     private ActivityUtils mActicityUtils;
@@ -31,7 +27,7 @@ public class MeFragment extends Fragment {
         return view;
     }
 
-    @OnClick({R.id.tv_person_info, R.id.tv_login, R.id.tv_person_goods, R.id.tv_goods_upload})
+    @OnClick({R.id.iv_user_head, R.id.tv_person_info, R.id.tv_login, R.id.tv_person_goods, R.id.tv_goods_upload})
     public void onClick(View view) {
         mActicityUtils.startActivity(LoginActivity.class);
         // TODO: 2017/2/7 0007 需要判断是否登录，从而决定跳转位置

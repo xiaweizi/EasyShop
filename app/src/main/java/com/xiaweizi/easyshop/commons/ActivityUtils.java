@@ -60,7 +60,8 @@ public class ActivityUtils {
         }
     }
 
-    @SuppressWarnings("SameParameterValue") public void showToast(@StringRes int resId){
+    @SuppressWarnings("SameParameterValue")
+    public void showToast(@StringRes int resId){
         Activity activity = getActivity();
         if (activity != null) {
             String msg = activity.getString(resId);

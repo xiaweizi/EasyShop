@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.xiaweizi.easyshop.R;
 import com.xiaweizi.easyshop.commons.ActivityUtils;
+import com.xiaweizi.easyshop.commons.LogUtils;
 import com.xiaweizi.easyshop.main.me.MeFragment;
 import com.xiaweizi.easyshop.main.shop.ShopFragment;
 

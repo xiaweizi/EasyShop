@@ -14,12 +14,24 @@ import android.widget.RelativeLayout;
 
 import com.xiaweizi.easyshop.R;
 import com.xiaweizi.easyshop.commons.ActivityUtils;
+import com.xiaweizi.easyshop.commons.LogUtils;
 import com.xiaweizi.easyshop.commons.RegexUtils;
 import com.xiaweizi.easyshop.components.ProgressDialogFragment;
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -87,8 +99,8 @@ public class RegisterActivity extends AppCompatActivity {
             pwdAgain = etPwdAgain.getText().toString();
 
             btnRegister.setEnabled(!(TextUtils.isEmpty(userName) ||
-                                TextUtils.isEmpty(passWord) ||
-                                TextUtils.isEmpty(pwdAgain)));
+                    TextUtils.isEmpty(passWord) ||
+                    TextUtils.isEmpty(pwdAgain)));
 
 
         }
@@ -106,22 +118,72 @@ public class RegisterActivity extends AppCompatActivity {
             mActivityUtils.showToast(R.string.username_equal_pwd);
             return;
         }
-        mActivityUtils.showToast("执行注册的网络请求");
+
+        /*************************** 完成网络注册请求 ***************************/
+        //1. 创建客户端
+        //2. 构建请求
+        //      2.1 添加url(服务器地址，接口)
+        //      2.2 添加请求方式(GET,POST)
+        //      2.3 添加请求头(根据服务器的要求添加，通常不需要)
+        //      2.4 添加请求体(可以为空)
+        //3. 客户端发送请求给服务器 ->响应
+        //4. 解析响应
+        //      4.1 判断是否连接成功(判断响应码)
+        //      4.2 如果响应码是200 - 299 -> 取出响应体(解析, 展示)
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        //设置值级别
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                //添加日志拦截器
+                .addInterceptor(interceptor)
+                .build();
+
+        RequestBody requestBody = new FormBody.Builder()
+                .add("username", userName)
+                .add("password", passWord)
+                .build();
+        final Request request = new Request.Builder()
+                .url("http://wx.feicuiedu.com:9094/yitao/UserWeb?method=register")
+                .post(requestBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                LogUtils.e(e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                //拿到响应体，判断是否成功
+                if (response.isSuccessful()){
+                    //拿到响应体
+                    ResponseBody responseBody = response.body();
+                    LogUtils.i(responseBody.string());
+                }
+            }
+        });
     }
 
-    /*************************** 设置右滑退出 ***************************/
+    /***************************
+     * 设置右滑退出
+     ***************************/
     float XUp = 0;
     float XDown = 0;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()){
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 XDown = event.getX();
                 break;
             case MotionEvent.ACTION_UP:
                 XUp = event.getX();
                 float XOffset = XUp - XDown;
-                if (XOffset >= 50){
+                if (XOffset >= 50) {
                     finish();
                 }
                 break;

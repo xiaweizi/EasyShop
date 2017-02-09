@@ -16,9 +16,19 @@ import com.xiaweizi.easyshop.R;
 import com.xiaweizi.easyshop.commons.ActivityUtils;
 import com.xiaweizi.easyshop.components.ProgressDialogFragment;
 
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -88,6 +98,39 @@ public class LoginActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.btn_login:
                 mActivityUtils.showToast("执行登陆的网络请求");
+
+                HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+                //设置值级别
+                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+                OkHttpClient client = new OkHttpClient
+                        .Builder()
+                        .addInterceptor(interceptor)
+                        .build();
+
+                RequestBody requestBody = new FormBody.Builder()
+                        .add("username", userName)
+                        .add("password", passWord)
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url("http://wx.feicuiedu.com:9094/yitao/UserWeb?method=login")
+                        .post(requestBody)
+                        .build();
+
+                client.newCall(request)
+                        .enqueue(new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+
+                            }
+                        });
+
                 break;
             case R.id.tv_register:
                 mActivityUtils.startActivity(RegisterActivity.class);

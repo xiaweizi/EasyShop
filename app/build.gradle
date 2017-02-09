@@ -36,5 +36,11 @@ dependencies {
     //circularimageview圆形头像
     compile 'com.pkmmte.view:circularimageview:1.1'
 
+    //okhttp
+    compile 'com.squareup.okhttp3:okhttp:3.5.0'
+
+    //拦截器
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+
     testCompile 'junit:junit:4.12'
 }

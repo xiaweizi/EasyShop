@@ -14,9 +14,9 @@ import android.widget.RelativeLayout;
 
 import com.xiaweizi.easyshop.R;
 import com.xiaweizi.easyshop.commons.ActivityUtils;
-import com.xiaweizi.easyshop.commons.LogUtils;
 import com.xiaweizi.easyshop.commons.RegexUtils;
 import com.xiaweizi.easyshop.components.ProgressDialogFragment;
+import com.xiaweizi.easyshop.network.EasyShopClient;
 
 import java.io.IOException;
 
@@ -25,13 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -131,39 +125,52 @@ public class RegisterActivity extends AppCompatActivity {
         //      4.1 判断是否连接成功(判断响应码)
         //      4.2 如果响应码是200 - 299 -> 取出响应体(解析, 展示)
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        //设置值级别
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+//        //设置值级别
+//        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//
+//        OkHttpClient client = new OkHttpClient.Builder()
+//                //添加日志拦截器
+//                .addInterceptor(interceptor)
+//                .build();
+//
+//        RequestBody requestBody = new FormBody.Builder()
+//                .add("username", userName)
+//                .add("password", passWord)
+//                .build();
+//        final Request request = new Request.Builder()
+//                .url("http://wx.feicuiedu.com:9094/yitao/UserWeb?method=register")
+//                .post(requestBody)
+//                .build();
+//
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                LogUtils.e(e.getMessage());
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//
+//                //拿到响应体，判断是否成功
+//                if (response.isSuccessful()){
+//                    //拿到响应体
+//                    ResponseBody responseBody = response.body();
+//                    LogUtils.i(responseBody.string());
+//                }
+//            }
+//        });
 
-        OkHttpClient client = new OkHttpClient.Builder()
-                //添加日志拦截器
-                .addInterceptor(interceptor)
-                .build();
-
-        RequestBody requestBody = new FormBody.Builder()
-                .add("username", userName)
-                .add("password", passWord)
-                .build();
-        final Request request = new Request.Builder()
-                .url("http://wx.feicuiedu.com:9094/yitao/UserWeb?method=register")
-                .post(requestBody)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        Call call = EasyShopClient.getInstance().register(userName, passWord);
+        call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                LogUtils.e(e.getMessage());
+
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
-                //拿到响应体，判断是否成功
-                if (response.isSuccessful()){
-                    //拿到响应体
-                    ResponseBody responseBody = response.body();
-                    LogUtils.i(responseBody.string());
-                }
             }
         });
     }

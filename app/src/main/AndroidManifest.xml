@@ -2,9 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xiaweizi.easyshop">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".main.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,8 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".main.MainActivity" />
-        <activity android:name=".user.LoginActivity" />
-        <activity android:name=".user.RegisterActivity"></activity>
+        <activity android:name=".user.login.LoginActivity" />
+        <activity android:name=".user.register.RegisterActivity" />
+        <activity android:name=".main.me.person.PersonActivity"></activity>
     </application>
 
 </manifest>

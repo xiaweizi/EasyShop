@@ -1,7 +1,7 @@
-package com.xiaweizi.easyshop.user;
+package com.xiaweizi.easyshop.user.login;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -12,21 +12,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import com.xiaweizi.easyshop.R;
 import com.xiaweizi.easyshop.commons.ActivityUtils;
+import com.xiaweizi.easyshop.commons.MyConstants;
+import com.xiaweizi.easyshop.commons.SPUtils;
 import com.xiaweizi.easyshop.components.ProgressDialogFragment;
-import com.xiaweizi.easyshop.network.EasyShopClient;
-
-import java.io.IOException;
+import com.xiaweizi.easyshop.main.MainActivity;
+import com.xiaweizi.easyshop.user.register.RegisterActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implements LoginView{
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -41,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialogFragment dialogFragment;
     private String userName;
     private String passWord;
+
+    private SPUtils spUtils;
     
 
     @Override
@@ -48,9 +49,24 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
         mActivityUtils = new ActivityUtils(this);
+        spUtils = new SPUtils(MyConstants.SP_LOGIN);
+
+        setLastUserName();//设置上次登陆的用户名
 
         initToolBar();//初始化ToolBar
+    }
+
+    @NonNull
+    @Override
+    public LoginPresenter createPresenter() {
+        return new LoginPresenter();
+    }
+
+    private void setLastUserName() {
+        String lastUserName = spUtils.getString(MyConstants.LAST_LOGIN_USERNAME);
+        etUsername.setText(lastUserName);
     }
 
     private void initToolBar() {
@@ -93,21 +109,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                mActivityUtils.showToast("执行登陆的网络请求");
-
-                Call call = EasyShopClient.getInstance().login(userName, passWord);
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-
-                    }
-                });
-
+                presenter.login(userName, passWord);
                 break;
             case R.id.tv_register:
                 mActivityUtils.startActivity(RegisterActivity.class);
@@ -133,5 +135,34 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    public void showPrb() {
+        mActivityUtils.hideSoftKeyboard();
+        if (dialogFragment == null) dialogFragment = new ProgressDialogFragment();
+        if (dialogFragment.isVisible()) return;
+        dialogFragment.show(getSupportFragmentManager(), "progress_dialog_fragment");
+    }
+
+    @Override
+    public void hidePrb() {
+        dialogFragment.dismiss();
+    }
+
+    @Override
+    public void loginSuccess() {
+        finish();
+    }
+
+    @Override
+    public void loginFailed() {
+        mActivityUtils.startActivity(MainActivity.class);
+        finish();
+    }
+
+    @Override
+    public void showMsg(String msg) {
+        mActivityUtils.showToast(msg);
     }
 }

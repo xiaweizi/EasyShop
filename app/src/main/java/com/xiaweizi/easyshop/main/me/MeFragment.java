@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 
 import com.xiaweizi.easyshop.R;
 import com.xiaweizi.easyshop.commons.ActivityUtils;
-import com.xiaweizi.easyshop.user.LoginActivity;
+import com.xiaweizi.easyshop.main.me.person.PersonActivity;
+import com.xiaweizi.easyshop.model.CachePreferences;
+import com.xiaweizi.easyshop.user.login.LoginActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,8 +31,26 @@ public class MeFragment extends Fragment {
 
     @OnClick({R.id.iv_user_head, R.id.tv_person_info, R.id.tv_login, R.id.tv_person_goods, R.id.tv_goods_upload})
     public void onClick(View view) {
-        mActicityUtils.startActivity(LoginActivity.class);
-        // TODO: 2017/2/7 0007 需要判断是否登录，从而决定跳转位置
+        if (CachePreferences.getUser().getName() == null){
+            mActicityUtils.startActivity(LoginActivity.class);
+            return;
+        }
+
+        switch (view.getId()){
+            case R.id.iv_user_head:
+
+            case R.id.tv_login:
+
+            case R.id.tv_person_info:
+                // TODO: 2017/2/14 进入个人信息界面
+                mActicityUtils.startActivity(PersonActivity.class);
+
+            case R.id.tv_person_goods:
+                // TODO: 2017/2/14 进入个人商品页面
+
+            case R.id.tv_goods_upload:
+                // TODO: 2017/2/14 跳转到商品上传界面
+        }
     }
 
 }

@@ -47,4 +47,6 @@ dependencies {
     //mosby。MVP
     compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
     testCompile 'junit:junit:4.12'
+    //图片剪裁的库
+    compile 'org.hybridsquad.android.photocropper:library:2.1.0'
 }

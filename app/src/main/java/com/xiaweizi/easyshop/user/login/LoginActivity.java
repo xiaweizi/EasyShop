@@ -18,7 +18,6 @@ import com.xiaweizi.easyshop.commons.ActivityUtils;
 import com.xiaweizi.easyshop.commons.MyConstants;
 import com.xiaweizi.easyshop.commons.SPUtils;
 import com.xiaweizi.easyshop.components.ProgressDialogFragment;
-import com.xiaweizi.easyshop.main.MainActivity;
 import com.xiaweizi.easyshop.user.register.RegisterActivity;
 
 import butterknife.BindView;
@@ -157,8 +156,8 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implem
 
     @Override
     public void loginFailed() {
-        mActivityUtils.startActivity(MainActivity.class);
-        finish();
+//        mActivityUtils.startActivity(MainActivity.class);
+//        finish();
     }
 
     @Override

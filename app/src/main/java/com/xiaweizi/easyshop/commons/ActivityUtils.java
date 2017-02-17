@@ -21,6 +21,7 @@ import java.lang.ref.WeakReference;
  */
 @SuppressWarnings("unused")
 public class ActivityUtils {
+     
 
     // 使用弱引用，避免不恰当地持有Activity或Fragment的引用。
     // 持有Activity的引用会阻止Activity的内存回收，增大OOM的风险。

@@ -28,6 +28,17 @@
         tools:text="@string/goods_price_hint" />
 
     <TextView
+        android:id="@+id/tv_detail_describe"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/dp_9"
+        android:layout_marginRight="@dimen/dp_9"
+        android:layout_weight="1"
+        android:textColor="@color/text_goods_describe"
+        android:textSize="@dimen/sp_18"
+        tools:text="@string/goods_describe" />
+
+    <TextView
         android:id="@+id/tv_detail_master"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_31"
@@ -38,14 +49,4 @@
         android:textColor="@color/btn_tell"
         android:textSize="@dimen/sp_18" />
 
-    <TextView
-        android:id="@+id/tv_detail_describe"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/dp_9"
-        android:layout_marginRight="@dimen/dp_9"
-        android:layout_weight="1"
-        android:textColor="@color/text_goods_describe"
-        android:textSize="@dimen/sp_18"
-        tools:text="@string/goods_describe" />
 </LinearLayout>

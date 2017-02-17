@@ -4,18 +4,19 @@
     package="com.xiaweizi.easyshop">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--SD卡读写权限-->
+    <!-- SD卡读写权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:name=".main.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        tool:replace="android:icon"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tool:replace="android:icon">
         <activity android:name=".main.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +28,10 @@
         <activity android:name=".user.login.LoginActivity" />
         <activity android:name=".user.register.RegisterActivity" />
         <activity android:name=".main.me.person.PersonActivity" />
-        <activity android:name=".main.me.person.NickNameActivity"></activity>
+        <activity android:name=".main.me.person.NickNameActivity" />
+        <activity android:name=".main.details.GoodsDetailActivity"/>
+        <activity android:name=".main.details.GoodsDetailInfoActivity"/>
+        <activity android:name=".main.me.persongoods.PersonGoodsActivity"/>
     </application>
 
 </manifest>

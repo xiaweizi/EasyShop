@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_person_goods"
     android:layout_width="match_parent"
@@ -29,7 +28,6 @@
             android:background="@android:color/white" />
 
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
-
     <TextView
         android:id="@+id/tv_load_error"
         android:layout_width="match_parent"

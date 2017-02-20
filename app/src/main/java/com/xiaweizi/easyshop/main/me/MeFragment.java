@@ -13,6 +13,7 @@ import com.pkmmte.view.CircularImageView;
 import com.xiaweizi.easyshop.R;
 import com.xiaweizi.easyshop.commons.ActivityUtils;
 import com.xiaweizi.easyshop.components.AvatarLoadOptions;
+import com.xiaweizi.easyshop.main.me.goodload.GoodsUpLoadActivity;
 import com.xiaweizi.easyshop.main.me.person.PersonActivity;
 import com.xiaweizi.easyshop.main.me.persongoods.PersonGoodsActivity;
 import com.xiaweizi.easyshop.model.CachePreferences;
@@ -82,7 +83,7 @@ public class MeFragment extends Fragment {
                 break;
 
             case R.id.tv_goods_upload:
-                // TODO: 2017/2/14 跳转到商品上传界面
+                mActicityUtils.startActivity(GoodsUpLoadActivity.class);
         }
     }
 

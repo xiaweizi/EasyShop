@@ -20,30 +20,23 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
-
     //添加butterknife
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-
     //添加MaterialDesign
     compile 'com.android.support:design:24.0.0'
-
     //circularimageview圆形头像
     compile 'com.pkmmte.view:circularimageview:1.1'
-
     //okhttp
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
-
     //拦截器
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-
     compile 'com.google.code.gson:gson:2.3.1'
-
     //mosby。MVP
     compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
     testCompile 'junit:junit:4.12'
@@ -51,11 +44,11 @@ dependencies {
     compile 'org.hybridsquad.android.photocropper:library:2.1.0'
     //图片加载
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-
     compile 'in.srain.cube:ptr-load-more:1.0.2'
-
     compile 'jp.wasabeef:recyclerview-animators:2.2.3'
-
     //圆形指示器
     compile 'me.relex:circleindicator:1.2.1@aar'
+    compile 'org.apache.commons:commons-lang3:3.4'
+    compile project(':apphx')
+    compile project(path: ':easeui')
 }

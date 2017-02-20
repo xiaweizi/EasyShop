@@ -2,6 +2,7 @@ package com.xiaweizi.easyshop.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -9,11 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.feicuiedu.apphx.presentation.contact.list.HxContactListFragment;
+import com.feicuiedu.apphx.presentation.conversation.HxConversationListFragment;
 import com.xiaweizi.easyshop.R;
 import com.xiaweizi.easyshop.commons.ActivityUtils;
-import com.xiaweizi.easyshop.commons.LogUtils;
 import com.xiaweizi.easyshop.main.me.MeFragment;
 import com.xiaweizi.easyshop.main.shop.ShopFragment;
+import com.xiaweizi.easyshop.model.CachePreferences;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -44,7 +47,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        viewpager.setAdapter(unLoginAdapter);
+        if (CachePreferences.getUser().getName() == null) {
+            viewpager.setAdapter(unLoginAdapter);
+            viewpager.setCurrentItem(0);
+        } else {
+            viewpager.setAdapter(fragmentLoginAdapter);
+            viewpager.setCurrentItem(0);
+        }
+
 
         //刚刚进来默认选择市场
         textViews[0].setSelected(true);
@@ -86,6 +96,28 @@ public class MainActivity extends AppCompatActivity {
         //设置一下toolbar的title
         mainTitle.setText(textViews[(Integer) view.getTag()].getText());
     }
+
+    private FragmentPagerAdapter fragmentLoginAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new ShopFragment();
+                case 1:
+                    return new HxConversationListFragment();
+                case 2:
+                    return new HxContactListFragment();
+                case 3:
+                    return new MeFragment();
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 4;
+        }
+    };
 
     private FragmentStatePagerAdapter unLoginAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
         @Override
